@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:okto_sdk_example/screens/home_page.dart';
-import 'package:okto_sdk_example/utils/global.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/screens/home_page.dart';
+import 'package:seconds_fi_app/utils/global.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class LoginWithGoogle extends StatefulWidget {
   const LoginWithGoogle({super.key});

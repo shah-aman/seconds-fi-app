@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class OrderHistoryPage extends StatefulWidget {
   const OrderHistoryPage({super.key});
@@ -33,7 +33,10 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
               margin: const EdgeInsets.all(40),
               child: const Text(
                 'Order History',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30),
               ),
             ),
             ElevatedButton(
@@ -55,10 +58,14 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                   : FutureBuilder<OrderHistoryResponse>(
                       future: _orderHistory,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: Colors.white));
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white));
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         } else if (snapshot.hasData) {
                           final orderHistory = snapshot.data!;
                           return Padding(
@@ -69,7 +76,8 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                                 Text('Status: ${orderHistory.status}'),
                                 Text('Total: ${orderHistory.data.total}'),
                                 SizedBox(
-                                  height: MediaQuery.sizeOf(context).height * 0.6,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.6,
                                   child: ListView.builder(
                                       itemCount: orderHistory.data.jobs.length,
                                       itemBuilder: (context, index) {
@@ -77,27 +85,38 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                                           color: Colors.blue,
                                           margin: const EdgeInsets.all(5),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Network Name: ${orderHistory.data.jobs[index].networkName}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 20),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                               ),
                                               Text(
                                                 'Order Id : ${orderHistory.data.jobs[index].orderId}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 20),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                               ),
                                               Text(
                                                 'Order Type : ${orderHistory.data.jobs[index].orderType}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 20),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                               ),
                                               Text(
                                                 'Status : ${orderHistory.data.jobs[index].status}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 20),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                               ),
                                               Text(
                                                 'Transaction Hash: ${orderHistory.data.jobs[index].transactionHash}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 20),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                               ),
                                             ],
                                           ),

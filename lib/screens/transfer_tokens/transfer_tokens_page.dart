@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class TransferTokensPage extends StatefulWidget {
   const TransferTokensPage({super.key});
@@ -173,7 +173,9 @@ class _TransferTokensPageState extends State<TransferTokensPage> {
                                     color: Colors.white));
                           } else if (snapshot.hasError) {
                             return Center(
-                                child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white)));
+                                child: Text('Error: ${snapshot.error}',
+                                    style:
+                                        const TextStyle(color: Colors.white)));
                           } else if (snapshot.hasData) {
                             final transferTokenResponse = snapshot.data!;
                             return Padding(

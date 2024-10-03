@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class ViewWalletPage extends StatefulWidget {
   const ViewWalletPage({super.key});
@@ -33,7 +33,10 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
               margin: const EdgeInsets.all(40),
               child: const Text(
                 'Get Wallet',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30),
               ),
             ),
             ElevatedButton(
@@ -50,10 +53,14 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                   : FutureBuilder<WalletResponse>(
                       future: _wallets,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: Colors.white));
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white));
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         } else if (snapshot.hasData) {
                           final wallets = snapshot.data!;
                           return Padding(
@@ -63,25 +70,33 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                               children: [
                                 const Text(
                                   'Wallet created successfully',
-                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.sizeOf(context).height * 0.6,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.6,
                                   child: ListView.builder(
                                       itemCount: wallets.data.wallets.length,
                                       itemBuilder: (context, index) {
-                                        return Container(color: const Color(0xff5166EE),
+                                        return Container(
+                                          color: const Color(0xff5166EE),
                                           margin: const EdgeInsets.all(5),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               SelectableText(
                                                 'Wallet adress: ${wallets.data.wallets[index].address}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 16),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
                                               ),
                                               SelectableText(
                                                 'Network name: ${wallets.data.wallets[index].networkName}',
-                                                style: const TextStyle(color: Colors.white, fontSize: 16),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
                                               ),
                                             ],
                                           ),

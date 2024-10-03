@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:okto_sdk_example/auth/google_login.dart';
-import 'package:okto_sdk_example/screens/raw_txn/raw_transaction_execute_page.dart';
-import 'package:okto_sdk_example/screens/transfer_tokens/order_history_page.dart';
-import 'package:okto_sdk_example/screens/transfer_tokens/transfer_tokens_page.dart';
-import 'package:okto_sdk_example/screens/view_details/user_details.dart';
-import 'package:okto_sdk_example/screens/view_details/user_portfolio.dart';
-import 'package:okto_sdk_example/screens/view_details/view_wallet.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/auth/google_login.dart';
+import 'package:seconds_fi_app/screens/raw_txn/raw_transaction_execute_page.dart';
+import 'package:seconds_fi_app/screens/transfer_tokens/order_history_page.dart';
+import 'package:seconds_fi_app/screens/transfer_tokens/transfer_tokens_page.dart';
+import 'package:seconds_fi_app/screens/view_details/user_details.dart';
+import 'package:seconds_fi_app/screens/view_details/user_portfolio.dart';
+import 'package:seconds_fi_app/screens/view_details/view_wallet.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

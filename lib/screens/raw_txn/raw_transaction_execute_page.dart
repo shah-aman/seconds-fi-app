@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class RawTransactioneExecutePage extends StatefulWidget {
   const RawTransactioneExecutePage({super.key});
@@ -150,7 +150,8 @@ class _RawTransactioneExecutePageState
                                   color: Colors.white));
                         } else if (snapshot.hasError) {
                           return Center(
-                              child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white)));
+                              child: Text('Error: ${snapshot.error}',
+                                  style: const TextStyle(color: Colors.white)));
                         } else if (snapshot.hasData) {
                           final transferNftResponse = snapshot.data!;
                           return Padding(

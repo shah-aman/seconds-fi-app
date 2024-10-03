@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class UserDetailsPage extends StatefulWidget {
   const UserDetailsPage({super.key});
@@ -35,7 +35,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               margin: const EdgeInsets.all(40),
               child: const Text(
                 'User Details',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30),
               ),
             ),
             ElevatedButton(
@@ -52,17 +55,21 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   : FutureBuilder<UserDetails>(
                       future: _userDetails,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: Colors.white));
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white));
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         } else if (snapshot.hasData) {
                           final userDetails = snapshot.data!;
                           return Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: 
-
-                            Text(userDetails.toJson(), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                            child: Text(userDetails.toJson(),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 16)),
                           );
                         }
                         return Container();

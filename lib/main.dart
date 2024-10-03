@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/auth/google_login.dart';
-import 'package:okto_sdk_example/screens/home_page.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/auth/google_login.dart';
+import 'package:seconds_fi_app/screens/home_page.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -11,7 +11,6 @@ void main() async {
   okto = Okto(globals.getOktoApiKey(), globals.getBuildType());
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             );
-          }  else {
+          } else {
             // Show login or home page based on login status
             bool isLoggedIn = snapshot.data ?? false;
             if (isLoggedIn) {

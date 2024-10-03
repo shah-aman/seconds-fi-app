@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
-import 'package:okto_sdk_example/utils/okto.dart';
+import 'package:seconds_fi_app/utils/okto.dart';
 
 class UserPortfolioPage extends StatefulWidget {
   const UserPortfolioPage({super.key});
@@ -33,7 +33,10 @@ class _UserPortfolioPageState extends State<UserPortfolioPage> {
               margin: const EdgeInsets.all(40),
               child: const Text(
                 'User Portfolio',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30),
               ),
             ),
             ElevatedButton(
@@ -50,10 +53,14 @@ class _UserPortfolioPageState extends State<UserPortfolioPage> {
                   : FutureBuilder<UserPortfolioResponse>(
                       future: _userPortfolio,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: Colors.white));
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white));
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         } else if (snapshot.hasData) {
                           final userPortfolio = snapshot.data!;
                           return Padding(
@@ -62,7 +69,8 @@ class _UserPortfolioPageState extends State<UserPortfolioPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: MediaQuery.sizeOf(context).height * 0.6,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.6,
                                   child: Text(
                                     userPortfolio.toJson(),
                                     style: const TextStyle(color: Colors.white),
