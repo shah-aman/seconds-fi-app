@@ -1,5 +1,5 @@
 name: seconds_fi_app
-description: "A new Flutter project."
+description: "Seconds FI App"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -37,6 +37,9 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_dotenv: ^5.1.0
   okto_flutter_sdk: ^0.0.16
+  google_fonts: ^6.2.1
+  neopop: ^1.0.2
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +65,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

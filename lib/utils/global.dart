@@ -24,7 +24,7 @@ class Globals {
       case 'staging':
         return BuildType.staging;
       default:
-         return BuildType.sandbox;
+        return BuildType.sandbox;
     }
   }
 

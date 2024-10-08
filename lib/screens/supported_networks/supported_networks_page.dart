@@ -2,27 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
 import 'package:seconds_fi_app/utils/okto.dart';
 
-class ViewWalletPage extends StatefulWidget {
-  const ViewWalletPage({super.key});
+class SupportedNetworksPage extends StatefulWidget {
+  const SupportedNetworksPage({super.key});
 
   @override
-  State<ViewWalletPage> createState() => _ViewWalletPageState();
+  State<SupportedNetworksPage> createState() => _SupportedNetworksPageState();
 }
 
-class _ViewWalletPageState extends State<ViewWalletPage> {
-  Future<WalletResponse>? _wallets;
+class _SupportedNetworksPageState extends State<SupportedNetworksPage> {
+  Future<NetworkDetails>? _supportedNetworks;
 
-  Future<WalletResponse> fetchWallets() async {
+  Future<NetworkDetails> getSupportedNetworks() async {
     try {
-      final wallets = await okto!.createWallet();
-      //print all wallets
-      for (var wallet in wallets.data.wallets) {
-        print(wallet.address);
-        print(wallet.networkName);
-      }
-      return wallets;
+      final supportedNetworks = await okto!.supportedNetworks();
+      return supportedNetworks;
     } catch (e) {
-      print(e);
       throw Exception(e);
     }
   }
@@ -38,7 +32,7 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
               alignment: Alignment.center,
               margin: const EdgeInsets.all(40),
               child: const Text(
-                'Get Wallet',
+                'View Supported Networks',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
@@ -48,16 +42,16 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _wallets = fetchWallets();
+                  _supportedNetworks = getSupportedNetworks();
                 });
               },
-              child: const Text('Get Wallet'),
+              child: const Text('Supported Wallet'),
             ),
             Expanded(
-              child: _wallets == null
+              child: _supportedNetworks == null
                   ? Container()
-                  : FutureBuilder<WalletResponse>(
-                      future: _wallets,
+                  : FutureBuilder<NetworkDetails>(
+                      future: _supportedNetworks,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -68,47 +62,41 @@ class _ViewWalletPageState extends State<ViewWalletPage> {
                           return Center(
                               child: Text('Error: ${snapshot.error}'));
                         } else if (snapshot.hasData) {
-                          final wallets = snapshot.data!;
+                          final supportedNetworks = snapshot.data!;
                           return Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Wallet created successfully',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
                                 SizedBox(
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.6,
                                   child: ListView.builder(
-                                      itemCount: wallets.data.wallets.length,
+                                      itemCount:
+                                          supportedNetworks.data.network.length,
                                       itemBuilder: (context, index) {
                                         return Container(
-                                          color: const Color(0xff5166EE),
+                                          color: Colors.blue,
                                           margin: const EdgeInsets.all(5),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SelectableText(
-                                                'Wallet adress: ${wallets.data.wallets[index].address}',
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16),
-                                              ),
-                                              SelectableText(
-                                                'Network name: ${wallets.data.wallets[index].networkName}',
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
+                                          child: ListTile(
+                                            title: Text(
+                                              'Network name: ${supportedNetworks.data.network[index].networkName}',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            ),
+                                            subtitle: Text(
+                                              'Chain ID : ${supportedNetworks.data.network[index].chainId}',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            ),
                                           ),
                                         );
                                       }),
                                 )
+
+                                // Add more fields here as needed
                               ],
                             ),
                           );
