@@ -7,23 +7,23 @@ class WalletProvider extends ChangeNotifier {
   WalletResponse? _walletResponse;
   bool _isLoading = false;
   String? _error;
+  bool _hasInitialized = false;
 
   WalletResponse? get walletResponse => _walletResponse;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
   Future<void> fetchWallets() async {
-    if (_isLoading) return;
+    if (_hasInitialized || _isLoading) return;
+
     _isLoading = true;
     _error = null;
+    notifyListeners();
 
     try {
       final wallets = await okto!.createWallet();
-      // need to print the entire json response
-      for (var wallet in wallets.data.wallets) {
-        debugPrint(wallet.toJson().toString());
-      }
       _walletResponse = wallets;
+      _hasInitialized = true;
     } catch (e) {
       _error = e.toString();
       debugPrint(e.toString());

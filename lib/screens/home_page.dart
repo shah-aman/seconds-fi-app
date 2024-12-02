@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neopop/widgets/buttons/neopop_tilted_button/neopop_tilted_button.dart';
 import 'package:seconds_fi_app/data/models/vault_data.dart';
+import 'package:seconds_fi_app/screens/transfer_tokens/deposit_money_from_wallet.dart';
 import 'package:seconds_fi_app/screens/view_details/user_details.dart';
 import 'package:seconds_fi_app/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +49,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final walletProvider = Provider.of<WalletProvider>(context);
     return Scaffold(
         backgroundColor: AppTheme.whiteBackgroundColor,
         body: Stack(
@@ -203,7 +203,13 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 20),
         NeoPopTiltedButton(
           isFloating: true,
-          onTapUp: () {},
+          onTapUp: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DepositMoneyFromWalletPage()),
+            );
+          },
           decoration: const NeoPopTiltedButtonDecoration(
             color: AppTheme.highlightColor,
             plunkColor: AppTheme.highlightColor,

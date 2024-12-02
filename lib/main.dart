@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:okto_flutter_sdk/okto_flutter_sdk.dart';
 import 'package:seconds_fi_app/providers/auth_state_provider.dart';
+import 'package:seconds_fi_app/providers/router_protocol_provider.dart';
 import 'package:seconds_fi_app/providers/user_provider.dart';
 import 'package:seconds_fi_app/screens/auth/google_login.dart';
 import 'package:seconds_fi_app/screens/onboarding_screen.dart';
@@ -12,6 +13,7 @@ import 'package:seconds_fi_app/utils/okto.dart';
 import 'package:seconds_fi_app/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:seconds_fi_app/providers/wallet_provider.dart';
+import 'package:seconds_fi_app/screens/home_page.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -32,6 +34,7 @@ void main() async {
             return userProvider;
           },
         ),
+        ChangeNotifierProvider(create: (context) => RouterProtocolProvider())
       ],
       child: const SecondsFiApp(),
     ),
@@ -53,24 +56,30 @@ class SecondsFiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Seconds FI App',
       theme: AppTheme.theme,
-      home: FutureBuilder<bool>(
-        future: checkLoginStatus(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else {
-            // Show login or home page based on login status]
-            bool isLoggedIn = snapshot.data ?? false;
-            if (isLoggedIn) {
-              return const OnboardingScreen();
-            } else {
-              return const LoginWithGoogle();
-            }
-          }
+      home: Consumer<WalletProvider>(
+        builder: (context, walletProvider, child) {
+          return FutureBuilder<bool>(
+            future: checkLoginStatus(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              final bool isLoggedIn = snapshot.data ?? false;
+              if (!isLoggedIn) {
+                return const LoginWithGoogle();
+              }
+
+              // Check wallet state only after login
+              if (walletProvider.walletResponse == null) {
+                return const OnboardingScreen();
+              }
+
+              return const HomePage();
+            },
+          );
         },
       ),
     );

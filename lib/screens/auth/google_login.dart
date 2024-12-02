@@ -66,18 +66,19 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
                 child: Consumer<AuthStateProvider>(
                   builder: (context, authProvider, _) {
                     if (authProvider.authState == AuthState.authenticated) {
-                      // Navigate to HomePage when authenticated
+                      // Navigate to OnboardingScreen only once
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (_) => const OnboardingScreen()),
+                          (route) => false, // This removes all previous routes
                         );
                       });
-                      return const SizedBox
-                          .shrink(); // Return an empty widget while navigating
+                      return const SizedBox.shrink();
                     }
                     return _buildGoogleSignInButton(
-                        () => authProvider.signInWithGoogle());
+                      () => authProvider.signInWithGoogle(),
+                    );
                   },
                 ),
               ),
